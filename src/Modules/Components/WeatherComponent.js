@@ -1,6 +1,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { Button } from './ReactWeathercontainer';
 
 
 
@@ -56,7 +57,7 @@ const InfoLabel = styled.span`
   & span {
     font-size: 14px;
     text-transform: normal;
-  }
+  };
 `;
 
 const WeatherInfoComponent = (props) => {
@@ -73,6 +74,7 @@ const WeatherInfoComponent = (props) => {
 
 function WeatherComponent(props) {
     const weatherDetails = props.weatherDetails
+    const resetWeather = props.resetWeather
     const isDay = weatherDetails.weather[0].icon.includes('d')
     const getTime = (timeStamp) => {
         const curr_time = new Date((timeStamp + weatherDetails.timezone) * 1000).toString().split(' ')[4].slice(0,5)
@@ -94,6 +96,8 @@ function WeatherComponent(props) {
             <WeatherInfoComponent name='Humidity (in %)' value={weatherDetails.main.humidity}/>
             <WeatherInfoComponent name='Wind (in m/s)' value={weatherDetails.wind.speed}/>
             <WeatherInfoComponent name='Pressure (in hPa)' value={weatherDetails.main.pressure}/>
+            <br></br>
+            <Button onClick={() => resetWeather(null)}>Back</Button>
         </WeatherInfoContainer>
     </div>
   )

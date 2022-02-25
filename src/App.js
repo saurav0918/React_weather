@@ -1,4 +1,4 @@
-import ReactWeathercontainer from "./Modules/Components/ReactWeathercontainer";
+import { ReactWeathercontainer } from "./Modules/Components/ReactWeathercontainer";
 
 function App() {
     return (

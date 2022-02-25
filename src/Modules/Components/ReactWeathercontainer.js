@@ -4,7 +4,7 @@ import CityComponent from './CityComponent';
 import WeatherComponent from './WeatherComponent';
 import ErrorComponent from './ErrorComponent';
 import axios from 'axios';
-import {lightTheme, darkTheme, GlobalStyles} from 'C:/Program Files/React/react-weather-app/src/Theme.js';
+import {lightTheme, darkTheme} from '../../Theme';
 import {ThemeProvider} from 'styled-components';
 
 const ContainerStyle = styled.div`
@@ -17,6 +17,8 @@ const ContainerStyle = styled.div`
     border-radius:5px;
     width:700px;
     height:400px;
+    background-color:${(props) => props.theme.body};
+    transition: all 0.5s
 `;
 
 const WeatherLabel = styled.span`
@@ -24,12 +26,20 @@ const WeatherLabel = styled.span`
     font-size:30px;
     font-weight:bold
 `
-
+const Button = styled.button`
+  padding: 10px 20px;
+  color: white;
+  background-color: black;
+  opacity: 0.9;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+`;
 
 function ReactWeathercontainer() {
     
     const [city, setCity] = useState('')
-    const [weather, setWeather] = useState('')
+    const [weather, setWeather] = useState(null)
     const [error, setError] = useState(false)
     const [theme, setTheme] = useState('light')
 
@@ -40,10 +50,9 @@ function ReactWeathercontainer() {
         const weather_data = localStorage.getItem('weather-data')
         if(weather_data){
             setWeather(JSON.parse(weather_data))
-            localStorage.removeItem('weather-data')
         }
         else{
-            setWeather('')
+            setWeather(null)
         }
     },[]
     )
@@ -62,7 +71,7 @@ function ReactWeathercontainer() {
         })
     }
 
-    const ThemeToggler = () => {
+    const themeToggler = () => {
       theme === 'light'? setTheme('dark'): setTheme('light')
     }
 
@@ -70,16 +79,15 @@ function ReactWeathercontainer() {
   return (
     <div>
         <ThemeProvider theme={theme==='light'? lightTheme: darkTheme}>
-            <GlobalStyles />
             <ContainerStyle>
                 <WeatherLabel>Weather App</WeatherLabel>
-                {weather?<WeatherComponent weatherDetails={weather}/>:<CityComponent updateCity={setCity} updateWeather={GetWeather}/>}
+                {weather?<WeatherComponent weatherDetails={weather} resetWeather={setWeather}/>:<CityComponent updateCity={setCity} updateWeather={GetWeather}/>}
                 {error?<ErrorComponent />:null}
-                <button onClick={() => ThemeToggler()} hidden={error || weather}>Change Theme</button>
+                <Button onClick={() => themeToggler()} hidden={error || weather}>Change Theme</Button>
             </ContainerStyle>
         </ThemeProvider>
     </div>
   )
 }
 
-export default ReactWeathercontainer
+export {ReactWeathercontainer, Button}

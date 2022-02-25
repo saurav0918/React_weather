@@ -8,6 +8,7 @@ const WeatherLogo = styled.img`
     height:130px;
     width:130px;
     margin-left:135px;
+    background-color:transparent
 `
 const CityLabel = styled.span`
     color:${(props) => props.theme.fontColor};
@@ -49,7 +50,7 @@ function CityComponent(props) {
   return (
       <div>
         <br></br>
-        <WeatherLogo src={'/Logos/weather-logo.jpg'} alt='Image cannot be displayed' />
+        <WeatherLogo src={'/Logos/weather-logo.jpg'} alt='Clear Weather Image' />
         <br></br>
         <br></br>
         <CityLabel>Find weather of Any City</CityLabel>

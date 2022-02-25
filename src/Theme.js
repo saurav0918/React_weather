@@ -1,4 +1,3 @@
-import { createGlobalStyle } from 'styled-components'
 
 const lightTheme = {
     body:'white',
@@ -8,16 +7,10 @@ const lightTheme = {
 }
 
 const darkTheme = {
-    body:'black',
+    body:'grey',
     fontColor:'white'
 
 }
 
 
-const GlobalStyles = createGlobalStyle`
-    body{
-        background-color: ${(props)=>props.theme.body}
-    }
-`
-
-export {lightTheme, darkTheme, GlobalStyles}
+export {lightTheme, darkTheme}
